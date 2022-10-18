@@ -1,0 +1,21 @@
+[submodule "src/bobi_vision"]
+	path = src/bobi_vision
+	url = git@github.com:epfl-mobots/bobi_vision.git
+[submodule "src/bobi_msgs"]
+	path = src/bobi_msgs
+	url = git@github.com:epfl-mobots/bobi_msgs.git
+[submodule "src/bobi_stats"]
+	path = src/bobi_stats
+	url = git@github.com:epfl-mobots/bobi_stats.git
+[submodule "src/bobi_fishbot_interface"]
+	path = src/bobi_fishbot_interface
+	url = git@github.com:epfl-mobots/bobi_fishbot_interface.git
+[submodule "src/bobi_global_launch"]
+	path = src/bobi_global_launch
+	url = git@github.com:epfl-mobots/bobi_global_launch.git
+[submodule "src/bobi_control"]
+	path = src/bobi_control
+	url = git@github.com:epfl-mobots/bobi_control.git
+[submodule "src/bobi_models"]
+	path = src/bobi_models
+	url = git@github.com:epfl-mobots/bobi_models.git
