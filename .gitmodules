@@ -7,9 +7,6 @@
 [submodule "src/bobi_stats"]
 	path = src/bobi_stats
 	url = git@github.com:epfl-mobots/bobi_stats.git
-[submodule "src/bobi_lurebot_interface"]
-	path = src/bobi_lurebot_interface
-	url = git@github.com:epfl-mobots/bobi_lurebot_interface.git
 [submodule "src/bobi_global_launch"]
 	path = src/bobi_global_launch
 	url = git@github.com:epfl-mobots/bobi_global_launch.git
@@ -19,3 +16,6 @@
 [submodule "src/bobi_models"]
 	path = src/bobi_models
 	url = git@github.com:epfl-mobots/bobi_models.git
+[submodule "src/bobi_lurebot_interface"]
+	path = src/bobi_lurebot_interface
+	url = git@github.com:epfl-mobots/bobi_lurebot_interface.git
