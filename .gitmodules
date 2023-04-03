@@ -19,3 +19,9 @@
 [submodule "src/bobi_lurebot_interface"]
 	path = src/bobi_lurebot_interface
 	url = git@github.com:epfl-mobots/bobi_lurebot_interface.git
+[submodule "src/bobi_fishbot_v4_interface"]
+	path = src/bobi_fishbot_v4_interface
+	url = git@github.com:epfl-mobots/bobi_fishbot_v4_interface.git
+[submodule "src/bobi_thymio_interface"]
+	path = src/bobi_thymio_interface
+	url = git@github.com:epfl-mobots/bobi_thymio_interface.git
