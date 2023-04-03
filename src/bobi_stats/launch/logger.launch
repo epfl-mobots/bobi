@@ -1,0 +1,10 @@
+<launch>
+
+    <arg name="ns" default="/" />
+    <group ns="$(arg ns)">
+        <rosparam command="load" file="$(find bobi_stats)/config/logger.yaml" />
+
+        <node name="logger" pkg="bobi_stats" type="logger.py" output="screen" cwd="node"/>
+    </group>
+
+</launch>

@@ -1,0 +1,5 @@
+<launch>
+    <node name="bobi_video_streaming_node" pkg="web_video_server" type="web_video_server" output="screen">
+        <param name="port" value="5623" />
+    </node>
+</launch>

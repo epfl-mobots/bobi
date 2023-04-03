@@ -1,0 +1,9 @@
+<launch>
+
+    <arg name="ns" default="/" />
+    <group ns="$(arg ns)">
+        <rosparam command="load" file="$(find bobi_control)/config/test/eights.yaml" />
+        <node name="eights_node" pkg="bobi_control" type="eights_node" output="screen"/>
+    </group>
+
+</launch>

@@ -1,0 +1,9 @@
+<launch>
+
+    <arg name="ns" default="/" />
+    <group ns="$(arg ns)">
+        <rosparam command="load" file="$(find bobi_control)/config/test/circular_trajectory.yaml" />
+        <node name="circular_trajectory_node" pkg="bobi_control" type="circular_trajectory_node" output="screen"/>
+    </group>
+
+</launch>

@@ -1,0 +1,8 @@
+<launch>
+
+    <arg name="ns" default="/" />
+    <group ns="$(arg ns)">
+        <node name="thymio_interface_node" pkg="bobi_thymio_interface" type="thymio_interface_node.py" output="screen"/>
+    </group>
+
+</launch>

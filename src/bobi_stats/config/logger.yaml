@@ -1,0 +1,4 @@
+logger:
+  rate: 60
+  # output_folder: '~/bobi_logs'
+  output_folder: '~/storage/bobi_logs/'

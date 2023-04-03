@@ -1,0 +1,7 @@
+eights:
+  waypoint_angle: 0.1
+  radius1: 0.1
+  radius2: 0.1
+  center: [0.712249, 0.454174]
+  shift_angle: 0.785
+  rate: 10

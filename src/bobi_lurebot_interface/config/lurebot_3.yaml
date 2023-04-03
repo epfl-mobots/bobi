@@ -1,0 +1,15 @@
+rate: 65
+panic_time: 0.05
+# panic_time: 0.15
+enable_ir: False
+ret_vel: True
+ret_temp: False
+ret_dropped_msgs: True
+max_acceleration: 1.0
+pwm_duty_cycle_perc: 70
+robot_id: 0
+bt_adapter: 0
+device_uuid: "08:3A:F2:B5:DD:C6" # robot 3
+# device_uuid: "4C:11:AE:8E:11:2E" # robot 2
+# device_uuid: "84:CC:A8:78:AE:5A" # robot 1
+check_heartbeat: True

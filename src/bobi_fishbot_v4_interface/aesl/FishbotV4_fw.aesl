@@ -1,0 +1,275 @@
+<!DOCTYPE aesl-source>
+<network>
+
+
+<!--list of global events-->
+<event size="2" name="LedControl"/>
+<event size="0" name="STOP"/>
+<event size="2" name="MotorControl"/>
+<event size="2" name="PositionControl"/>
+<event size="1" name="PowerDown"/>
+<event size="1" name="Obstacle"/>
+<event size="2" name="MotorControlFish_bot_A"/>
+<event size="2" name="MotorControlFish_bot_B"/>
+<event size="2" name="MotorControlFish_bot_C"/>
+<event size="2" name="MotorControlFish_bot_D"/>
+<event size="2" name="MotorControlFish_bot_E"/>
+<event size="2" name="MotorControlFish_bot_F"/>
+<event size="2" name="MotorControlFish_bot_G"/>
+<event size="2" name="MotorControlFish_bot_H"/>
+<event size="2" name="MotorControlFish_bot_I"/>
+<event size="2" name="MotorControlFish_bot_J"/>
+<event size="3" name="FishBehaviorFish_bot_A"/>
+<event size="3" name="FishBehaviorFish_bot_B"/>
+<event size="3" name="FishBehaviorFish_bot_C"/>
+<event size="3" name="FishBehaviorFish_bot_D"/>
+<event size="3" name="FishBehaviorFish_bot_E"/>
+<event size="3" name="FishBehaviorFish_bot_F"/>
+<event size="3" name="FishBehaviorFish_bot_G"/>
+<event size="3" name="FishBehaviorFish_bot_H"/>
+<event size="3" name="FishBehaviorFish_bot_I"/>
+<event size="3" name="FishBehaviorFish_bot_J"/>
+<event size="1" name="SetObstacleAvoidanceFish_bot_A"/>
+<event size="1" name="SetObstacleAvoidanceFish_bot_B"/>
+<event size="1" name="SetObstacleAvoidanceFish_bot_C"/>
+<event size="1" name="SetObstacleAvoidanceFish_bot_D"/>
+<event size="1" name="SetObstacleAvoidanceFish_bot_E"/>
+<event size="1" name="SetObstacleAvoidanceFish_bot_F"/>
+<event size="1" name="SetObstacleAvoidanceFish_bot_G"/>
+<event size="1" name="SetObstacleAvoidanceFish_bot_H"/>
+<event size="1" name="SetObstacleAvoidanceFish_bot_I"/>
+<event size="1" name="SetObstacleAvoidanceFish_bot_J"/>
+
+
+<!--list of constants-->
+
+
+<!--show keywords state-->
+<keywords flag="true"/>
+
+
+<!--node Fish_bot_D-->
+<node nodeId="35" name="Fish_bot_F">
+
+# some variables
+var i=0
+var EventFree=0
+var Mot1BefSensor=0
+var Mot2BefSensor=0
+var DesiredSpeedLeft=0
+var DesiredSpeedRight=0
+
+# ID of the Fish Bot given by high level control application
+var IDControl=0
+
+# Variables used for obstacle avoidance
+var ObstacleAvoidance=0 #0=no obstacle avoidance 1=braitenberg  2=turn to avoid
+var ThreshSensor=100
+
+# Variables used for turn to avoid
+var SpeedAvoid=5
+var SpeedAvoidBack=3
+var TimeAvoid=6000
+var TimeAvoidBack=2000
+
+# Variables used for braitenberg
+var coeffAvoid=400
+var threshback=500 #hack pour reculer
+
+#Variables used for Fish Behavior
+var oldPositionLeft=0
+var oldPositionRight=0
+var desiredAngle=0
+var desiredDistance=0
+var vuobstacle=0
+
+onevent LedControl
+led_1=event.args[0]
+led_2=-event.args[1]
+
+onevent STOP
+mot1.pid.enable=0
+mot2.pid.enable=0
+mot1.pid.target_speed=0
+mot2.pid.target_speed=0
+
+onevent MotorControl
+mot1.pid.enable=2
+mot2.pid.enable=2
+DesiredSpeedLeft=event.args[1]
+DesiredSpeedRight=event.args[0]
+if (event.args[0])>mot1.pid.speed_max or (event.args[1])>mot2.pid.speed_max or (event.args[0])&lt;-mot1.pid.speed_max or (event.args[1])&lt;-mot2.pid.speed_max then
+	mot1.pid.target_speed=0
+	mot2.pid.target_speed=0
+else
+	mot1.pid.target_speed=event.args[1]
+	mot2.pid.target_speed=-event.args[0]
+end
+
+onevent MotorControlFish_bot_F
+mot1.pid.enable=2
+mot2.pid.enable=2
+DesiredSpeedLeft=event.args[1]
+DesiredSpeedRight=event.args[0]
+if (event.args[0])>mot1.pid.speed_max or (event.args[1])>mot2.pid.speed_max or (event.args[0])&lt;-mot1.pid.speed_max or (event.args[1])&lt;-mot2.pid.speed_max then
+	mot1.pid.target_speed=0
+	mot2.pid.target_speed=0
+else
+	mot1.pid.target_speed=event.args[1]
+	mot2.pid.target_speed=-event.args[0]
+end
+
+onevent PositionControl
+mot1.pid.enable=3
+mot2.pid.enable=3
+oldPositionLeft=mot1.position
+oldPositionRight=mot2.position
+mot1.pid.target_position = oldPositionLeft + event.args[0]
+mot2.pid.target_position = oldPositionRight - event.args[1]
+
+onevent FishBehaviorFish_bot_F
+if IR_front_left &lt; ThreshSensor and IR_front_right &lt; ThreshSensor then
+
+	if resetEnc==0 then
+		resetEnc=1
+	else
+		resetEnc=0	
+	end
+	i=0
+	EventFree=1
+	
+	desiredAngle=event.args[0]
+	desiredDistance=event.args[1]
+	
+	oldPositionLeft=0
+	oldPositionRight=0
+	
+	mot1.pid.enable=3
+	mot2.pid.enable=3
+	
+	#turn towards the target
+	if desiredAngle&lt;0 then
+		mot2.pid.target_position =  (desiredAngle*32*2/180)
+		mot1.pid.target_position = 0
+	else
+		mot1.pid.target_position = (desiredAngle*32*2/180)
+		mot2.pid.target_position = 0
+	end
+
+	#wait until you have reached the right angle
+	while i&lt;32000 do
+		i++
+		if (mot1.position>mot1.pid.target_position-5 and 		mot1.position&lt;mot1.pid.target_position+5) and (mot2.position>mot2.pid.target_position-5 and mot2.position&lt;mot2.pid.target_position+5) then
+		i=32001		
+		end
+	end
+
+	#Accelerate to reach the right position
+	mot1.pid.target_position = mot1.position + desiredDistance
+	mot2.pid.target_position = mot2.position - desiredDistance
+	i=0
+	while i&lt;32000 do
+		i++
+		if (mot1.position>mot1.pid.target_position-6 and mot1.position&lt;mot1.pid.target_position+6) and (mot2.position>mot2.pid.target_position-6 and mot2.position&lt;mot2.pid.target_position+6) then
+			i=32001		
+		end
+	end
+	
+	#Set a constant speed
+	mot1.pid.enable=2
+	mot2.pid.enable=2
+	mot1.pid.target_speed=event.args[2]
+	mot2.pid.target_speed=-event.args[2]
+end
+
+onevent IR
+if pwgnd&lt;1 then
+	emit PowerDown[IDControl]
+end
+	
+if ObstacleAvoidance==1 then
+
+        if IR_front_left > ThreshSensor or IR_front_right > ThreshSensor then
+                emit Obstacle[IDControl]
+        end
+
+	Mot1BefSensor=DesiredSpeedLeft
+	Mot2BefSensor=-DesiredSpeedRight
+	if IR_front_left > ThreshSensor and IR_front_right &lt; ThreshSensor then
+		mot1.pid.target_speed=Mot1BefSensor-(IR_front_left/coeffAvoid)
+		mot2.pid.target_speed=Mot2BefSensor
+	elseif IR_front_right > ThreshSensor and IR_front_left &lt; ThreshSensor then
+		mot1.pid.target_speed=Mot1BefSensor
+		mot2.pid.target_speed=Mot2BefSensor+(IR_front_right/coeffAvoid)
+	elseif IR_front_right > ThreshSensor and IR_front_left > ThreshSensor then
+		i=0
+		mot1.pid.enable=2
+		mot2.pid.enable=2	
+		if  IR_front_right>IR_front_left then
+			mot1.pid.target_speed=-2
+			mot2.pid.target_speed=5				
+		else
+			mot1.pid.target_speed=-5
+			mot2.pid.target_speed=2		
+		end
+
+		while i&lt;TimeAvoid do
+			i=i+1		
+		end
+		mot1.pid.target_speed=Mot1BefSensor
+		mot2.pid.target_speed=Mot2BefSensor	
+	end
+
+elseif ObstacleAvoidance==2 then
+	Mot1BefSensor=mot1.pid.target_speed
+	Mot2BefSensor=mot2.pid.target_speed
+	if IR_front_left > ThreshSensor and IR_front_right &lt; ThreshSensor then
+		i=0
+		emit Obstacle[IDControl]
+		mot1.pid.enable=2
+		mot2.pid.enable=2
+		mot1.pid.target_speed=-SpeedAvoid
+		mot2.pid.target_speed=-SpeedAvoid
+		while i&lt;TimeAvoid do
+			i=i+1		
+		end
+		mot1.pid.target_speed=Mot1BefSensor
+		mot2.pid.target_speed=Mot2BefSensor
+	elseif IR_front_right > ThreshSensor and IR_front_left &lt; ThreshSensor then
+		i=0
+		emit Obstacle[IDControl]
+		mot1.pid.enable=2
+		mot2.pid.enable=2
+		mot1.pid.target_speed=SpeedAvoid
+		mot2.pid.target_speed=SpeedAvoid
+		while i&lt;TimeAvoid do
+			i=i+1		
+		end
+		mot1.pid.target_speed=Mot1BefSensor
+		mot2.pid.target_speed=Mot2BefSensor
+	
+	elseif IR_front_right > ThreshSensor and IR_front_left > ThreshSensor then
+		i=0
+		emit Obstacle[IDControl]
+		mot1.pid.enable=2
+		mot2.pid.enable=2
+		mot1.pid.target_speed=-5
+		mot2.pid.target_speed=5
+		while i&lt;TimeAvoid do
+			i=i+1		
+		end
+		mot1.pid.target_speed=Mot1BefSensor
+		mot2.pid.target_speed=Mot2BefSensor	
+	end
+
+end
+
+
+
+onevent SetObstacleAvoidanceFish_bot_D
+ObstacleAvoidance=event.args[0]
+
+</node>
+
+
+</network>

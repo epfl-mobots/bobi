@@ -1,0 +1,6 @@
+circular_trajectory:
+  waypoint_angle: 0.1
+  radius: 0.215
+  center: [0.712249, 0.454174]
+  rate: 5
+  cw: true

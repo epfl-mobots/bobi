@@ -1,0 +1,28 @@
+<launch>
+    <arg name="ns" default="/" />
+    <group ns="$(arg ns)">
+        <rosparam>
+            pose_topic: "robot_poses"
+            wheel_radius: 0.01
+            wheel_distance: 0.0451
+            dl_interaction:
+                rate: 8
+                model_path: "~/Desktop/dli_checkpoint.h5"
+                num_timesteps: 5
+                num_neighs: 1
+                most_influential_ind: "closest"
+                radius: 0.25
+                distance_inputs: True
+                always_current_pos: False
+                lost_count_thres: 5
+        </rosparam>
+
+        <node name="fpose_drop" pkg="topic_tools" type="drop" output="screen" args="filtered_poses 3 4 dl_interaction/filtered_poses_drop">
+        </node>
+
+        <node name="rpose_drop" pkg="topic_tools" type="drop" output="screen" args="robot_poses 3 4 dl_interaction/robot_poses_drop">
+        </node>
+
+        <node name="dl_interaction" pkg="bobi_control" type="dl_interaction.py" output="screen"/>
+    </group>
+</launch>

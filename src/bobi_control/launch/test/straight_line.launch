@@ -1,0 +1,9 @@
+<launch>
+
+    <arg name="ns" default="/" />
+    <group ns="$(arg ns)">
+        <rosparam command="load" file="$(find bobi_control)/config/test/straight_line.yaml" />
+        <node name="straight_line_node" pkg="bobi_control" type="straight_line_node" output="screen"/>
+    </group>
+
+</launch>

@@ -1,0 +1,254 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="https://www.ros.org/wiki/xacro" name="lurebot">
+
+    <xacro:include filename="$(find bobi_models)/urdf/utils/inertia.xacro" />
+    <xacro:include filename="$(find bobi_models)/urdf/utils/materials.xacro" />
+    <xacro:include filename="$(find bobi_models)/urdf/utils/custom_sensors.xacro" />
+    <xacro:include filename="$(find bobi_models)/urdf/lurebot_simple.gazebo" />
+
+    <xacro:property name="wheel_radius" value="0.01"/>
+    <xacro:property name="wheel_len" value="0.004"/>
+    <xacro:arg name="mass" default="0.093"/>
+    <xacro:property name="mass_p" value="$(arg mass)"/>
+    <xacro:property name="body_mass" value="${mass_p * 0.90}"/>
+    <xacro:property name="wheel_mass" value="${mass_p * 0.05}"/>
+
+    <joint name="left_wheel_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="left_wheel_link"/>
+        <axis rpy="0 0 0" xyz="0 1 0"/>
+        <origin xyz="0 0.023 -0.009"/>
+    </joint>
+
+
+    <joint name="right_wheel_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="right_wheel_link"/>
+        <axis rpy="0 0 0" xyz="0 1 0"/>
+        <origin xyz="0 -0.023 -0.009"/>
+    </joint>
+
+    <joint name="support_1_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="support_1_link"/>
+        <axis xyz="0 1 0"/>
+        <origin rpy="0 0 0" xyz="0.020 0.0185 -0.0165"/>
+        <joint_properties damping="0.0" friction="0.0" />
+
+        <calibration rising="0.0"/>
+        <dynamics damping="0.0" friction="0.0"/>
+    </joint>
+
+    <joint name="support_2_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="support_2_link"/>
+        <axis xyz="0 1 0"/>
+        <origin rpy="0 0 0" xyz="0.020 -0.0185 -0.0165"/>
+        <joint_properties damping="0.0" friction="0.0" />
+
+        <calibration rising="0.0"/>
+        <dynamics damping="0.0" friction="0.0"/>
+    </joint>
+
+    <joint name="support_3_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="support_3_link"/>
+        <axis xyz="0 1 0"/>
+        <origin rpy="0 0 0" xyz="-0.020 0.0185 -0.0165"/>
+        <joint_properties damping="0.0" friction="0.0" />
+
+        <calibration rising="0.0"/>
+        <dynamics damping="0.0" friction="0.0"/>
+    </joint>
+
+    <joint name="support_4_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="support_4_link"/>
+        <axis xyz="0 1 0"/>
+        <origin rpy="0 0 0" xyz="-0.020 -0.0185 -0.0165"/>
+        <joint_properties damping="0.0" friction="0.0" />
+
+        <calibration rising="0.0"/>
+        <dynamics damping="0.0" friction="0.0"/>
+    </joint>
+
+    <link name="base_link">
+        <visual>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <box size="0.050 0.049 0.029"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <box size="0.050 0.049 0.029"/>
+            </geometry>
+            <material name="white"/>
+        </collision>
+
+        <visual>
+            <origin xyz="0.004 0 0.0195"/>
+            <geometry>
+                <box size="0.042 0.049 0.011"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision>
+            <origin xyz="0.004 0 0.0195"/>
+            <geometry>
+                <box size="0.042 0.049 0.011"/>
+            </geometry>
+            <material name="white"/>
+        </collision>
+
+        <visual>
+            <origin xyz="-0.021 0 0.0195"/>
+            <geometry>
+                <box size="0.008 0.032 0.011"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision>
+            <origin xyz="-0.021 0 0.0195"/>
+            <geometry>
+                <box size="0.008 0.032 0.011"/>
+            </geometry>
+            <material name="white"/>
+        </collision>
+
+        <inertial>
+            <mass value="${body_mass}"/>
+            <xacro:box_inertia mass="${body_mass}" x="0.11" y="0.112" z="0.045" />
+        </inertial>
+    </link>
+
+
+    <link name="support_1_link">
+        <visual>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.00255" length="0.004"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.00255" length="0.004"/>
+            </geometry>
+            <material name="black"/>
+        </collision>
+        <inertial>
+            <mass value="0.001"/>
+            <xacro:cylinder_inertia mass="0.001" r="0.0255" h="0.004" />
+        </inertial>
+    </link>
+
+    <link name="support_2_link">
+        <visual>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.00255" length="0.004"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.00255" length="0.004"/>
+            </geometry>
+            <material name="black"/>
+        </collision>
+        <inertial>
+            <mass value="0.001"/>
+            <xacro:cylinder_inertia mass="0.001" r="0.0255" h="0.004" />
+        </inertial>
+    </link>
+
+
+    <link name="support_3_link">
+        <visual>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.00255" length="0.004"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.00255" length="0.004"/>
+            </geometry>
+            <material name="black"/>
+        </collision>
+        <inertial>
+            <mass value="0.001"/>
+            <xacro:cylinder_inertia mass="0.001" r="0.0255" h="0.004" />
+        </inertial>
+    </link>
+
+    <link name="support_4_link">
+        <visual>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.00255" length="0.004"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.00255" length="0.004"/>
+            </geometry>
+            <material name="black"/>
+        </collision>
+        <inertial>
+            <mass value="0.001"/>
+            <xacro:cylinder_inertia mass="0.001" r="0.0255" h="0.004" />
+        </inertial>
+    </link>
+
+    <link name="left_wheel_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+            <geometry>
+                <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+            <geometry>
+                <cylinder radius="${wheel_radius}" length="${wheel_len}"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <mass value="${wheel_mass}"/>
+            <xacro:cylinder_inertia mass="${wheel_mass}" r="${wheel_radius}" h="${wheel_len}" />
+        </inertial>
+    </link>
+
+    <link name="right_wheel_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+            <geometry>
+                <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+            <geometry>
+                <cylinder radius="${wheel_radius}" length="${wheel_len}"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="${wheel_mass}"/>
+            <xacro:cylinder_inertia mass="${wheel_mass}" r="${wheel_radius}" h="${wheel_len}" />
+        </inertial>
+    </link>
+
+</robot>

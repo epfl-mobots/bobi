@@ -1,0 +1,12 @@
+<launch>
+    <arg name="ns" default="/" />
+    <group ns="$(arg ns)">
+
+        <include file="$(find bobi_lurebot_interface)/launch/lurebot_3.launch">
+        </include>
+
+        <include file="$(find bobi_control)/launch/position_controller.launch">
+        </include>
+
+    </group>
+</launch>

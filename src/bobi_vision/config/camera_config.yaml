@@ -1,0 +1,99 @@
+top_camera:
+  using_file: False
+  camera_dev_no: "0"
+  # camera_dev_no: "/home/fishbot-user/storage/testing/v2/1agent-ref/epfl-fishfacility_11_18_2022-11_34_26/top_raw.mp4"
+  # camera_dev_no: "/home/fishbot-user/storage/testing/v2/5agents-ref-01/epfl-fishfacility_11_18_2022-14_22_40/top_raw.mp4"
+  camera_px_width: 512
+  camera_px_height: 512
+  camera_px_width_undistorted: 507
+  camera_px_height_undistorted: 508
+  fps: 30
+  # pix2m: 0.001475
+  # pix2m: 0.001329787
+  # pix2m: 0.001250877
+  pix2m: 0.001232759
+  camera_matrix:
+    rows: 3
+    cols: 3
+    data: [783.55455,   0.     , 256.11758,
+            0.     , 783.21002, 262.14992,
+            0.     ,   0.     ,   1.     ]
+  distortion_model: plumb_bob
+  distortion_coefficients:
+    rows: 1
+    cols: 5
+    data: [-0.176236, 0.418800, 0.005023, -0.002432, 0.000000]
+  rectification_matrix:
+    rows: 3
+    cols: 3
+    data: [1., 0., 0.,
+          0., 1., 0.,
+          0., 0., 1.]
+  projection_matrix:
+    rows: 3
+    cols: 4
+    data: [771.06183,   0.     , 254.97104,   0.     ,
+            0.     , 770.24854, 263.07475,   0.     ,
+            0.     ,   0.     ,   1.     ,   0.     ]
+  mask_type: "Circle"
+  mask: [253, 254, 200]
+  # mask: [256, 256, 220]
+  
+
+bottom_camera:
+  using_file: False
+  camera_dev_no: "2"
+  # camera_dev_no: "/home/fishbot-user/storage/testing/v2/1agent-ref/epfl-fishfacility_11_18_2022-11_34_26/bot_raw.mp4"
+  # camera_dev_no: "/home/fishbot-user/storage/testing/v2/5agents-ref-01/epfl-fishfacility_11_18_2022-14_22_40/bot_raw.mp4"
+  camera_px_width: 640
+  camera_px_height: 480
+  camera_px_width_undistorted: 617
+  camera_px_height_undistorted: 388
+  fps: 30
+  pix2m: 0.002201031
+  camera_matrix:
+    rows: 3
+    cols: 3
+    data: [354.63806,   0.     , 325.08967,
+            0.     , 354.95442, 234.85626,
+            0.     ,   0.     ,   1.     ]
+  distortion_model: plumb_bob
+  distortion_coefficients:
+    rows: 1
+    cols: 5
+    data: [-0.286276, 0.063449, 0.000008, -0.000346, 0.000000]
+  rectification_matrix:
+    rows: 3
+    cols: 3
+    data: [1., 0., 0.,
+          0., 1., 0.,
+          0., 0., 1.]
+  projection_matrix:
+    rows: 3
+    cols: 4
+    data: [248.43188,   0.     , 326.67802,   0.     ,
+            0.     , 298.10226, 232.06242,   0.     ,
+            0.     ,   0.     ,   1.     ,   0.     ]
+
+  # led_colours: [120, 190, 120, 
+  #               85, 85, 120]
+  # hsv_thresholds: [0.65, 0.65, 0.65, 1.4, 1.4, 1.0,
+  #                 0.7, 0.6, 0.5, 1.3, 2.0, 1.0]
+
+  # led_colours: [140, 184, 113, 
+  #               180, 89, 180]
+  # hsv_thresholds: [0.75, 0.58, 0.54, 1.46, 1.5, 0.58,
+  #                 0.7, 0.8, 0.94, 2.0, 1.88, 0.94]
+#  led_colours: [180, 89, 180, 140, 184, 113 
+#                ]
+#  hsv_thresholds: [0.7, 0.8, 0.94, 2.0, 1.88, 0.94, 0.75, 0.58, 0.54, 1.46, 1.5, 0.58
+#                  ]
+
+  led_colours: [180, 89, 180,
+                140, 184, 113]
+  hsv_thresholds: [0.7, 0.8, 0.94, 2.0, 1.88, 0.94, 
+                   0.75, 0.58, 0.54, 1.46, 1.5, 0.58]
+
+  mask_type: "Rectangle"
+  mask: [173, 33, 478, 382]
+  

@@ -1,0 +1,10 @@
+<launch>
+
+    <arg name="ns" default="/" />
+    <group ns="$(arg ns)">
+        <rosparam command="load" file="$(find bobi_lurebot_interface)/config/lurebot_3.yaml" />
+
+        <node name="lurebot_interface_node" pkg="bobi_lurebot_interface" type="lurebot_interface_node" output="screen"/>
+    </group>
+
+</launch>

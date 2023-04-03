@@ -1,0 +1,4 @@
+rate: 10
+robot_id: 0
+fw_path: "/home/vpapaspy/vaios_ws/bobi_ws/src/bobi_fishbot_v4_interface/aesl/FishbotV4_fw.aesl"
+fishbot_name: "Fish_bot_F"

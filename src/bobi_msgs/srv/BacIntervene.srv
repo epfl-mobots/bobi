@@ -1,0 +1,6 @@
+float32 gatt
+float32 gali
+float32 mspeed_coeff
+bool enable
+---
+bool success

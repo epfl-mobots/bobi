@@ -1,0 +1,3 @@
+[submodule "deps/SimpleBLE"]
+	path = deps/SimpleBLE
+	url = git@github.com:bpapaspyros/SimpleBLE.git

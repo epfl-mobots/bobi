@@ -1,0 +1,10 @@
+<launch>
+
+    <arg name="ns" default="/" />
+    <group ns="$(arg ns)">
+        <rosparam command="load" file="$(find bobi_vision)/config/camera_config.yaml" />
+
+        <node name="synchronous_tracking_node" pkg="bobi_vision" type="synchronous_tracking_node" output="screen"/>
+    </group>
+
+</launch>

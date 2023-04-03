@@ -1,0 +1,21 @@
+<launch>
+
+    <arg name="ns" default="/" />
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch" ns="$(arg ns)">
+        <arg name="paused" value="false"/>
+        <arg name="verbose" value="true"/>
+        <arg name="gui" value="true"/>
+    </include>
+
+    <include file="$(find bobi_models)/launch/setup_gazebo.launch" ns="$(arg ns)">
+        <arg name="with_gazebo" value="false"/>
+        <arg name="node_start_delay" value="0.0" />
+    </include>
+
+    <include file="$(find bobi_models)/launch/lurebot_gazebo.launch" ns="$(arg ns)">
+        <arg name="with_gazebo" value="false"/>
+        <arg name="node_start_delay" value="2.0" />
+    </include>
+
+</launch>

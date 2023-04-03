@@ -1,0 +1,22 @@
+<launch>
+
+    <arg name="ns" default="/" />
+    <group ns="$(arg ns)">
+        <rosparam>
+            <!-- replay_file_path: "/home/vpapaspy/Desktop/pose_003.dat" -->
+            <!-- scale: 0.0096 -->
+            <!-- replay_file_path: "/home/vpapaspy/Desktop/exp_0_generated_virtu_positions.dat"
+            scale: 0.25 -->
+
+            replay:
+                replay_file_path: "/home/vpapaspy/Desktop/pose_003.dat"
+                scale: 0.0096
+                radius: 0.25
+                cols_iter: 2
+                num_ind_replay: 1
+        </rosparam>
+
+        <node name="trajectory_identification_node" pkg="bobi_vision" type="trajectory_identification_node" output="screen"/>
+    </group>
+
+</launch>

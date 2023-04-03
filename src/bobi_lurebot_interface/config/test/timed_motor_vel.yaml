@@ -1,0 +1,4 @@
+timed_motor_vel:
+  num_repetitions: 5
+  delay: 5.
+  velocity: 0.02

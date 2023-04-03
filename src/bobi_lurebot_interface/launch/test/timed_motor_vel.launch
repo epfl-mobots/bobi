@@ -1,0 +1,10 @@
+<launch>
+
+    <arg name="ns" default="/" />
+    <group ns="$(arg ns)">
+        <rosparam command="load" file="$(find bobi_lurebot_interface)/config/test/timed_motor_vel.yaml" />
+
+        <node name="timed_motor_vel" pkg="bobi_lurebot_interface" type="timed_motor_vel" output="screen"/>
+    </group>
+
+</launch>

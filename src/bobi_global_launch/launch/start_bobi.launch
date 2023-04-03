@@ -1,0 +1,12 @@
+<launch>
+    <arg name="ns" default="/" />
+    <group ns="$(arg ns)">
+
+        <include file="$(find bobi_vision)/launch/start_tracking.launch">
+        </include>
+
+        <include file="$(find bobi_stats)/launch/logger.launch">
+        </include>
+
+    </group>
+</launch>

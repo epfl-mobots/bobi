@@ -1,0 +1,23 @@
+<launch>
+    <arg name="ns" default="/" />
+    <group ns="$(arg ns)">
+        <arg name="joy_dev" default="/dev/input/js0" />
+        <arg name="joy_topic" default="joy_lurebot" />
+        <arg name="deadzone" default="0.08" />
+
+        <rosparam>
+            linear_scaler: 1.0
+            angular_scaler: 9.0
+        </rosparam>
+
+        <node name="joy_node" pkg="joy" type="joy_node">
+            <param name="dev" value="$(arg joy_dev)" />
+            <param name="deadzone" value="$(arg deadzone)" />
+            <param name="autorepeat_rate" value="0" />
+            <remap from="joy" to="$(arg joy_topic)" />
+        </node>
+
+        <node name="joy_controller" pkg="bobi_control" type="logitech_controller.py" output="screen"/>
+
+    </group>
+</launch>

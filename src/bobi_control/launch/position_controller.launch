@@ -1,0 +1,21 @@
+<launch>
+    <arg name="ns" default="/" />
+    <group ns="$(arg ns)">
+        <rosparam>
+            pose_topic: "robot_poses"
+            wheel_radius: 0.01
+            wheel_distance: 0.0441
+            position_control:
+                rotation_accel: 1.5
+        </rosparam>
+
+        <!-- Thymio values -->
+        <!-- <rosparam>
+            pose_topic: "robot_poses"
+            wheel_radius: 0.022
+            wheel_distance: 0.0475      
+        </rosparam> -->
+
+        <node name="position_controller_node" pkg="bobi_control" type="position_controller_node" output="screen"/>
+    </group>
+</launch>

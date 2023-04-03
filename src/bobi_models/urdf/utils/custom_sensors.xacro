@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="https://www.ros.org/wiki/xacro">
+
+    <xacro:property name="id" value="foo"/>
+    <xacro:property name="plink" value="foo_parent"/>
+
+    <xacro:property name="jointxyz" value="0 0 0"/>
+    <xacro:property name="jointrpy" value="0 0 0"/>
+    <xacro:property name="sensor_width" value="0.007" />
+    <xacro:property name="sensor_length" value="0.0025" />
+    <xacro:property name="sensor_height" value="0.004" />
+    <xacro:property name="originrpy" value="0 0 0" />
+    <xacro:property name="originxyz" value="0 0 0" />
+
+    <xacro:macro name="csensor" params="plink id mass originrpy originxyz jointxyz jointrpy">
+
+        <link name="sensor_${id}_mount_point">
+            <visual>
+                <geometry>
+                    <box size="${sensor_width} ${sensor_length} ${sensor_height}" />
+                </geometry>
+                <material name="black" />
+                <origin rpy="${originrpy}" xyz="${originxyz}" />
+            </visual>
+            <collision>
+                <geometry>
+                    <box size="0 0 0" />
+                </geometry>
+                <origin rpy="${originrpy}" xyz="${originxyz}" />
+            </collision>
+            <inertial>
+                <mass value="${mass}" />
+                <origin rpy="${originrpy}" xyz="${originxyz}" />
+                <xacro:box_inertia mass="${mass}" x="${sensor_length}" y="${sensor_width}" z="${sensor_height}" />
+            </inertial>
+        </link>
+
+        <joint name="${plink}_sensor_${id}_mount_point" type="fixed">
+            <parent link="${plink}" />
+            <child link="sensor_${id}_mount_point" />
+            <origin xyz="${jointxyz}" rpy="${jointrpy}" />
+            <axis rpy="0 0 0" xyz="0 0 0"/>
+        </joint>
+
+
+        <link name="sensor_${id}">
+            <visual>
+                <geometry>
+                    <box size="0 0 0" />
+                </geometry>
+                <material name="black" />
+                <origin rpy="0 0 0" xyz="0 0 0" />
+            </visual>
+            <collision>
+                <geometry>
+                    <box size="0 0 0" />
+                </geometry>
+                <origin rpy="0 0 0" xyz="0 0 0" />
+            </collision>
+            <inertial>
+                <mass value="0" />
+                <origin rpy="0 0 0" xyz="0 0 0" />
+                <xacro:box_inertia mass="${mass}" x="${sensor_length}" y="${sensor_width}" z="${sensor_height}" />
+            </inertial>
+
+        </link>
+        <joint name="${plink}_sensor_${id}" type="fixed">
+            <parent link="sensor_${id}_mount_point" />
+            <child link="sensor_${id}" />
+            <origin xyz="0 0 0" rpy="0 0 1.57" />
+            <axis rpy="0 0 0" xyz="0 0 0"/>
+        </joint>
+
+        <gazebo reference="sensor_${id}"> 
+            <sensor type="ray" name="sensor_${id}_instance">
+                <pose>0 0 0 0 0 0</pose>
+                <ray>
+                    <scan>
+                        <horizontal>
+                            <samples>1</samples>
+                            <resolution>1</resolution>
+                            <min_angle>-0.05</min_angle>
+                            <max_angle>0.05</max_angle>
+                        </horizontal>
+                        <vertical>
+                            <samples>1</samples>
+                            <resolution>1</resolution>
+                            <min_angle>-0.05</min_angle>
+                            <max_angle>0.05</max_angle>
+                        </vertical>
+                    </scan>
+                    <range>
+                        <min>0.0005</min>
+                        <max>0.04</max>
+                        <resolution>0.0001</resolution>
+                    </range>
+                </ray>
+                <plugin name="laser" filename="libgazebo_ros_laser.so">
+                    <topicName>/thymio_laser/sensor_${id}</topicName>
+                    <frameName>sensor_${id}</frameName>
+                </plugin>
+                <always_on>true</always_on>
+                <update_rate>10</update_rate>
+                <visualize>true</visualize>
+            </sensor>
+        </gazebo>
+    </xacro:macro>
+
+</robot>

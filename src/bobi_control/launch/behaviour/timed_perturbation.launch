@@ -1,0 +1,15 @@
+<launch>
+    <arg name="ns" default="/" />
+    <group ns="$(arg ns)">
+        <rosparam>
+            timed_perturbation:
+                gatt: 0.0
+                gali: 0.0
+                mspeed_coeff: 0.5
+                wtime: 240
+
+        </rosparam>
+
+        <node name="timed_perturbation" pkg="bobi_control" type="timed_perturbation.py" output="screen"/>
+    </group>
+</launch>

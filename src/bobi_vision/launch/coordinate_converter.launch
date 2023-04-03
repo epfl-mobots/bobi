@@ -1,0 +1,9 @@
+<launch>
+
+    <arg name="ns" default="/" />
+    <group ns="$(arg ns)">
+        <rosparam command="load" file="$(find bobi_vision)/config/calibration/camera_mapping.yaml" />
+        <node name="coordinate_converter_node" pkg="bobi_vision" type="coordinate_converter_node" output="screen"/>
+    </group>
+
+</launch>

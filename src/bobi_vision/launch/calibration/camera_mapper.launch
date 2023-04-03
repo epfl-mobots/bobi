@@ -1,0 +1,10 @@
+<launch>
+
+    <arg name="ns" default="/" />
+    <group ns="$(arg ns)">
+        <rosparam command="load" file="$(find bobi_vision)/config/calibration/autocalibration_config.yaml" />
+
+        <node name="auto_calibrate_camera_map" pkg="bobi_vision" type="auto_calibrate_camera_map.py" output="screen" cwd="node"/>
+    </group>
+
+</launch>

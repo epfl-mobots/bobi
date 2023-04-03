@@ -1,0 +1,9 @@
+<launch>
+    <arg name="ns" default="/" />
+    <group ns="$(arg ns)">
+        <rosparam>
+            pose_topic: "robot_poses"
+        </rosparam>
+        <node name="velocity_controller_node" pkg="bobi_control" type="velocity_controller_node" output="screen"/>
+    </group>
+</launch>

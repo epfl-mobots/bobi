@@ -1,0 +1,8 @@
+<launch>
+
+    <arg name="ns" default="/" />
+    <group ns="$(arg ns)">
+        <node name="click_to_waypoint_rqt_node" pkg="bobi_vision" type="click_to_waypoint_rqt_node" output="screen"/>
+    </group>
+
+</launch>

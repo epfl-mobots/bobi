@@ -1,0 +1,101 @@
+<robot name="box-setup"
+    xmlns:xacro="https://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find bobi_models)/urdf/utils/materials.xacro" />
+    <xacro:include filename="$(find bobi_models)/urdf/utils/inertia.xacro" />
+
+    <xacro:property name="border_thickness" value="0.04"/>
+    <xacro:property name="setup_dim_x" value="0.81"/>
+    <xacro:property name="setup_dim_y" value="0.81"/>
+    <xacro:property name="setup_dim_z" value="0.04"/>
+    <xacro:property name="box_mass" value="10"/>
+
+    <link name="world"/>
+
+    <joint name="world_joint" type="fixed">
+        <parent link="world"/>
+        <child link="setup"/>
+    </joint>
+
+    <link name="setup">
+        <visual>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <box size="${setup_dim_x + border_thickness} ${setup_dim_y + border_thickness} ${border_thickness}"/>
+            </geometry>
+            <material name="brown"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <box size="${setup_dim_x + border_thickness} ${setup_dim_y + border_thickness} ${border_thickness}"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="0 -${(setup_dim_y)/2} ${setup_dim_z - border_thickness/4}"/>
+            <geometry>
+                <box size="${setup_dim_x + border_thickness} ${border_thickness} ${setup_dim_z + border_thickness}"/>
+            </geometry>
+            <material name="brown"/>
+        </visual>
+        <collision>
+            <origin xyz="0 -${(setup_dim_y)/2} ${setup_dim_z - border_thickness/4}"/>
+            <geometry>
+                <box size="${setup_dim_x + border_thickness} ${border_thickness} ${setup_dim_z + border_thickness}"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="0 ${(setup_dim_y)/2} ${setup_dim_z - border_thickness/4}"/>
+            <geometry>
+                <box size="${setup_dim_x + border_thickness} ${border_thickness} ${setup_dim_z + border_thickness}"/>
+            </geometry>
+            <material name="brown"/>
+        </visual>
+        <collision>
+            <origin xyz="0 ${(setup_dim_y)/2} ${setup_dim_z - border_thickness/4}"/>
+            <geometry>
+                <box size="${setup_dim_x + border_thickness} ${border_thickness} ${setup_dim_z + border_thickness}"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="${(setup_dim_x)/2} 0  ${setup_dim_z - border_thickness/4}"/>
+            <geometry>
+                <box size="${border_thickness} ${setup_dim_y + border_thickness} ${setup_dim_z + border_thickness}"/>
+            </geometry>
+            <material name="brown"/>
+        </visual>
+        <collision>
+            <origin xyz="${(setup_dim_x)/2} 0  ${setup_dim_z - border_thickness/4}"/>
+            <geometry>
+                <box size="${border_thickness} ${setup_dim_y + border_thickness} ${setup_dim_z + border_thickness}"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="-${(setup_dim_x)/2} 0  ${setup_dim_z - border_thickness/4}"/>
+            <geometry>
+                <box size="${border_thickness} ${setup_dim_y + border_thickness} ${setup_dim_z + border_thickness}"/>
+            </geometry>
+            <material name="brown"/>
+        </visual>
+        <collision>
+            <origin xyz="-${(setup_dim_x)/2} 0  ${setup_dim_z - border_thickness/4}"/>
+            <geometry>
+                <box size="${border_thickness} ${setup_dim_y + border_thickness} ${setup_dim_z + border_thickness}"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <mass value="${box_mass}"/>
+            <xacro:box_inertia mass="${box_mass}" x="${setup_dim_x + border_thickness}" y="${setup_dim_y + border_thickness}" z="${border_thickness}" />
+        </inertial>
+    </link>
+
+
+    <gazebo reference="setup">
+        <material>Gazebo/DarkGrey</material>
+    </gazebo>
+</robot>
